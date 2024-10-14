@@ -5,22 +5,22 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
-    private:
-    void ans(int i,int s,vector<int>&arr,int n,vector<int>&ss){
-        //bc
-        if(i==n){
-            ss.push_back(s);
-            return;
-        }
-        ans(i+1,s+arr[i],arr,n,ss);
-        ans(i+1,s,arr,n,ss);
-    }
   public:
     vector<int> subsetSums(vector<int> arr, int n) {
         // Write Your Code here
-        vector<int>ss;
-        ans(0,0,arr,n,ss);
-        return ss;
+        vector<int>a;
+        int total=1<<n;
+        for(int i=0;i<total;i++){
+            int c=0;
+            for(int j=0;j<n;j++){
+                if(i&(1<<j)){
+                    c+=arr[j];
+                }
+               
+            }
+             a.push_back(c);
+        }
+        return a;
     }
 };
 
