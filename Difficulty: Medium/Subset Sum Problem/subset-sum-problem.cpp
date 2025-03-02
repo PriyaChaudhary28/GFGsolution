@@ -9,29 +9,32 @@ using namespace std;
 // User function template for C++
 
 class Solution {
-    private:
-    bool f(int i,vector<int>&arr, int t,vector<vector<int>>&dp){
-        //base case
-        if(t==0) return true;
-        if(i==0) return arr[0]==t;
-        if(dp[i][t]!=-1) return dp[i][t];
-        //recursive call
-       bool pick = false;
-        bool notpick=f(i-1,arr,t,dp);
-        if(arr[i]<=t)
-            
-         pick=f(i-1,arr,t-arr[i],dp);
-        
-         return dp[i][t]=notpick || pick;
-        
-        
-    }
+  
   public:
     bool isSubsetSum(vector<int>& arr, int target) {
         int n=arr.size();
-        vector<vector<int>>dp(n,vector<int>(target+1,-1));
-       return f(n-1,arr,target,dp);
+       vector<vector<bool>> dp(n, vector<bool>(target + 1, false));
+      for(int i=0;i<n;i++){
+           dp[i][0]=true;
+      }
         // code here
+        
+        if (arr[0] <= target) {
+        dp[0][arr[0]] = true;
+    }
+        
+        for(int i=1;i<n;i++){
+            for(int j=1;j<=target;j++){
+               bool nottake=dp[i-1][j];
+               
+               bool take=false;
+               if(arr[i]<=j){
+                   take=dp[i-1][j-arr[i]];
+               }
+               dp[i][j]=nottake || take;
+            }
+        }
+        return dp[n - 1][target];
     }
 };
 
