@@ -3,15 +3,16 @@ class Solution {
     int missingNumber(vector<int> &arr) {
         // code here
         int n=arr.size();
-         int cnt=1;
-         sort(arr.begin(),arr.end());
+         vector<bool>vis(n,false);
          for(int i=0;i<n;i++){
-             if(arr[i]<=0) continue;
-             if(arr[i]==cnt && arr[i]!=arr[i+1]) cnt++;
-             else if(arr[i]!=cnt) {
-                 break;
+             if(arr[i]>0 && arr[i]<=n)
+             vis[arr[i]-1]=true;
+         }
+         for(int i=1;i<=n;i++){
+             if(!vis[i-1]){
+                 return i;
              }
          }
-         return cnt;
+         return n+1;
     }
 };
